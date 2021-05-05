@@ -15,7 +15,6 @@
 
 ## Association
 - has_many :items
-- has_one :destination
 
 
 
@@ -25,7 +24,7 @@
 | ------------------| ---------- | ------------------------------ |
 | name              | string     | null: false                    |
 | description       | text       | null: false                    |
-| category          | string     | null: false                    |
+| category_id       | integer    | null: false                    |
 | condition_id      | integer    | null: false                    |
 | shipping_fee_id   | integer    | null: false                    |
 | shipping_place_id | integer    | null: false                    |
@@ -35,24 +34,25 @@
 
 ## Association
 - belongs_to :user
-
+- has_many :purchase_histories
 
 
 
 ## destinationテーブル
 
-| Column      | Type      | Options     |
-| ----------- | --------- | ----------- |
-| postal_code | string    | null: false |
-| prefecture  | string    | null: false |
-| city        | string    | null: false |
-| street      | string    | null: false |
-| bulding     | string    |             |
-| tephone     | string    | null: false |
+| Column            | Type       | Options                        |
+| ----------------- | ---------- | ------------------------------ |
+| postal_code       | string     | null: false                    |
+| shipping_place_id | integer    | null: false                    |
+| city              | string     | null: false                    |
+| street            | string     | null: false                    |
+| bulding           | string     |                                |
+| tephone           | string     | null: false                    |
+| purchase_history  | references | null: false, foreign_key: true |
+
 
 ## Association
-- belongs_to :user
-
+- belongs_to :purchase_history
 
 
 
@@ -67,3 +67,4 @@
 ## Association
 - belongs_to :user
 - belongs_to :item
+- has_one :destination
