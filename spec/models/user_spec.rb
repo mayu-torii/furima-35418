@@ -59,6 +59,12 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password is invalid")
     end
 
+    it 'password_confirmationが半角英字のみの時はでは登録できない' do
+      @user.password_confirmation = 'aaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+
     it 'passwordが存在してもpassword_confirmationが空では登録できない' do
       @user.password_confirmation = ''
       @user.valid?
@@ -89,7 +95,30 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("First name kana can't be blank", "First name kana is invalid")
     end
   
+    it "family_nameに関して、漢字・平仮名・カタカナ以外は登録できない" do
+      @user.family_name = 'aaa111'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Family name is invalid")
+    end
+    
+    it "last_nameに関して、漢字・平仮名・カタカナ以外は登録できない" do
+      @user.first_name = 'aaa111'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name is invalid")
+    end
+
+    it "family_name_kanaに関して、全角カタカナ以外では登録できない" do
+      @user.family_name_kana = 'aa11ひらがな漢字ｶﾀｶﾅ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Family name kana is invalid")
+    end
+
+    it "first_name_kanaに関して、全角カタカナ以外では登録できない" do
+      @user.first_name_kana = 'aa11ひらがな漢字ｶﾀｶﾅ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name kana is invalid")
+    end  
 
   end
-  end
+ end
 end 
