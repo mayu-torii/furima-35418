@@ -10,7 +10,13 @@ RSpec.describe User, type: :model do
     it 'nicknameとemail、passwordとpassword_confirmation、family_nameとfirst_name、family_name_kanaとfirst_name_kana、birthdayが存在すれば登録できる' do
       expect(@user).to be_valid
     end
-   end
+
+    it 'passwordが6文字以上であれば登録できる' do
+      @user.password = '123abc'
+      @user.password_confirmation = '123abc'
+      expect(@user).to be_valid
+    end
+  end
 
    context '新規登録できないとき' do
     it 'nicknameが空では登録できない' do
@@ -101,7 +107,7 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Family name is invalid")
     end
     
-    it "last_nameに関して、漢字・平仮名・カタカナ以外は登録できない" do
+    it "first_nameに関して、漢字・平仮名・カタカナ以外は登録できない" do
       @user.first_name = 'aaa111'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name is invalid")
@@ -117,7 +123,20 @@ RSpec.describe User, type: :model do
       @user.first_name_kana = 'aa11ひらがな漢字ｶﾀｶﾅ'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana is invalid")
-    end  
+    end 
+    
+    it 'passwordが5文字以下では登録できない' do
+      @user.password = '1234a'
+      @user.password_confirmation = '1234a'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)", "Password is invalid")
+    end
+
+    it 'emailに@を含まなければ登録できない' do
+      @user.email = 'aaa.com'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Email is invalid")
+    end
 
   end
  end
