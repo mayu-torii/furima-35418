@@ -25,7 +25,6 @@ class ItemsController < ApplicationController
   end  
 
   def edit
-    redirect_to items_path unless @item.user_id == current_user.id
   end
 
   def update
