@@ -43,11 +43,11 @@
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
 | postal_code       | string     | null: false                    |
-| shipping_place_id | integer    | null: false                    |
+| prefecture_id     | integer    | null: false                    |
 | city              | string     | null: false                    |
 | street_number     | string     | null: false                    |
-| bulding_name      | string     |                                |
-| tephone           | string     | null: false                    |
+| building_name     | string     |                                |
+| telephone         | string     | null: false                    |
 | oder              | references | null: false, foreign_key: true |
 
 
