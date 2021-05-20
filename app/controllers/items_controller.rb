@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
   end
   
   def contributor_confirmation
-    redirect_to items_path unless @item.user_id && @item.order.nil? == current_user.id
+    redirect_to action: :index unless current_user.id == @item.user_id && @item.order.nil?
   end
   
 end
