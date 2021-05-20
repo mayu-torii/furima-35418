@@ -6,7 +6,7 @@ RSpec.describe OrderAddress, type: :model do
     buyer = FactoryBot.create(:user)
     item = FactoryBot.create(:item, user_id: seller.id)
     @order_address = FactoryBot.build(:order_address, user_id: buyer.id, item_id: item.id)
-    sleep(1)
+    sleep(2)
   end
 
   describe '購入者情報登録' do
@@ -67,7 +67,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'telephoneが12桁以上だと登録できない' do
         @order_address.telephone = '090123456789'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Telephone Input only number")
+        expect(@order_address.errors.full_messages).to include("Telephone is invalid. Input only number")
       end
     end 
   end
