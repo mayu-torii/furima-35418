@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :shipping_place
   belongs_to :shipping_days
+  has_many :comments, dependent: :destroy
 
   
   belongs_to :user

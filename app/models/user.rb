@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :oders
+  has_many :comments, dependent: :destroy
 
   
   validates :nickname, presence: true
